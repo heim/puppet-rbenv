@@ -52,6 +52,7 @@ define rbenv::install ( $user, $shell ) {
     cwd     => "/home/${user}/ruby-build",
     onlyif  => '[ -z "$(which ruby-build)" ]',
     path    => ["/bin", "/usr/local/bin", "/usr/bin", "/usr/sbin"],
+    require => Package["zlib1g-dev"],
   }
 
   rbenv::support::line { "remove PATH from ${shell}rc":

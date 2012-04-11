@@ -27,7 +27,7 @@
 # [Remember: No empty lines between comments and class definition]
 class rbenv ( $user, $compile=true, $version="1.9.3-p125", $shell="bash" ) {
   
-  include rbenv::dependencies
+  include rbenv::dependencies::ubuntu
 
   rbenv::install { "rbenv::install::${user}": user => $user, shell => $shell }
 
