@@ -20,14 +20,16 @@
 #         user    => "alup",
 #         compile => true,
 #         version => "1.9.3-p0",
+#         shell => "zsh",
+#
 #     }
 #
 # [Remember: No empty lines between comments and class definition]
-class rbenv ( $user, $compile=true, $version="1.9.3-p125" ) {
-
+class rbenv ( $user, $compile=true, $version="1.9.3-p125", $shell="bash" ) {
+  
   include rbenv::dependencies
 
-  rbenv::install { "rbenv::install::${user}": user => $user }
+  rbenv::install { "rbenv::install::${user}": user => $user, shell => $shell }
 
   if $compile {
     rbenv::compile { "rbenv::compile::${user}::${version}":
