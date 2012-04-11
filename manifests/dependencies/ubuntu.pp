@@ -1,5 +1,12 @@
 class rbenv::dependencies::ubuntu {
-
+  Package {
+    require => Exec["apt-get update"]
+  }
+  if ! defined(Exec["apt-get update"]) {
+    exec { "apt-get update": 
+      path => "/usr/bin:/bin/:/sbin/:/usr/sbin"
+    }
+  }
   if ! defined(Package['build-essential']) { package { 'build-essential':   ensure => installed } }
   if ! defined(Package['libc6-dev']) { package { 'libc6-dev':               ensure => installed } }
   if ! defined(Package['bison']) { package { 'bison':                       ensure => installed } }
