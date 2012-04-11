@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'rbenv::install', :type => :define do
   let(:title) { 'rbenv::install::tester' }
-  let(:params) { { :user => 'tester' } }
+  let(:params) { { :user => 'tester', :shell => "bash" } }
 
   context 'install rbenv' do
     it "clones rbenv from the official repository" do
@@ -12,12 +12,12 @@ describe 'rbenv::install', :type => :define do
 
     it "appends in .bashrc, a command to include .rbenv/bin folder in PATH env variable" do
       should contain_exec("configure rbenv path").
-        with_command('echo "export PATH=\$HOME/.rbenv/bin:\$PATH" >> .bashrc')
+        with_command("echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> /home/tester/.bashrc")
     end
 
     it "appends in .bashrc, a command to initialiaze rbenv in each bash session" do
       should contain_exec("configure rbenv init").
-        with_command('echo "eval \"\$(rbenv init -)\"" >> .bashrc')
+        with_command("echo 'eval \"$(rbenv init -)\"' >> /home/tester/.bashrc")
     end
   end
 
